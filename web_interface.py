@@ -233,4 +233,4 @@ if __name__ == "__main__":
     apsched.add_job(clean, 'interval', seconds=CLEAN_INTERVAL)
     apsched.add_job(resolve_active, 'interval', seconds=LEAD_TIMEALIVE)
 
-    serve(app,host='0.0.0.0',port=8080)
+    serve(app,host='0.0.0.0',port=8484)
