@@ -69,7 +69,7 @@ $('#track-btn').click(function () {
                 
                 var latlong = data['log'][i]['location']['latitude'] + ', ' + data['log'][i]['location']['longitude'];
 		var date = new Date(1000*parseFloat(data['log'][i]['time']))
-		var line = data['log'][i]['ip'] + " at " + (date.getHours() % 12) + ":" + date.getMinutes()  + (date.getHours() >= 12 ? " pm" : " am") + " on " + (1+date.getMonth()) + "/" + date.getDate() + "/" + date.getFullYear();
+		var line = data['log'][i]['ip'] + " at " + ((date.getHours() % 12)+1) + ":" + date.getMinutes()  + (date.getHours() >= 12 ? " pm" : " am") + " on " + (1+date.getMonth()) + "/" + date.getDate() + "/" + date.getFullYear();
                 if(latlong in mappoints) mappoints[latlong].push(line);
                 else mappoints[latlong] = [line];
             }
