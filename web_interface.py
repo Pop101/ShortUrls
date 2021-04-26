@@ -184,19 +184,20 @@ def serve_file(name, ext):
 def request_fingerprint():
     print('Lead found')
 
+    ip = request.environ['HTTP_X_FORWARDED_FOR'] if request.environ['HTTP_X_FORWARDED_FOR'] else request.environ['REMOTE_ADDR']
+
     # Get basic tracking info
     track = {
         'time': datetime.datetime.utcnow().timestamp(),
         'user_agent': request.user_agent.string,
         'headers': dict(request.headers),
-        'ip': request.environ['REMOTE_ADDR']
+        'ip': ip
     }
 
     # GEOIP the IP
-    ip = request.environ['HTTP_X_FORWARDED_FOR'] if request.environ['HTTP_X_FORWARDED_FOR'] else request.environ['REMOTE_ADDR']
     if ip:
         reader = geolite2.reader()
-        match = reader.get(str(request.environ['REMOTE_ADDR']))
+        match = reader.get(str(ip))
         if match:
             if match['country'] and match['country']['iso_code']:   track['country'] = match['country']['iso_code']
             if match['location']:
