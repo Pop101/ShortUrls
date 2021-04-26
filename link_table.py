@@ -57,7 +57,7 @@ def push(key, url='', connection = conn, cursor = c):
     pass
 
 def add_track(id, track, connection = conn, cursor = c):
-    cursor.execute('UPDATE links SET log=SUBSTR(log, 0, LENGTH(log)) || IIF(LENGTH(log) > 2, \',\', \'\') || (?) || \']\' WHERE id=(?)', (repr(track), id))
+    cursor.execute('''UPDATE links SET log=SUBSTR(log, 0, LENGTH(log)) || (CASE WHEN LENGTH(log) > 2 THEN ',' ELSE '' END) || (?) || \']\' WHERE id=(?)''', (repr(track), id))
     connection.commit()
 
 if __name__ == "__main__":
