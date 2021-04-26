@@ -67,9 +67,11 @@ $('#track-btn').click(function () {
             for(var i in data['log']) {
                 if(!('location' in data['log'][i])) continue;
                 
-                var latlong = data['log'][i]['location']['latitude'] + ', ' + data['log'][i]['location']['longitude']
-                if(latlong in mappoints) mappoints[latlong].push(data['log'][i]['ip'] + " at " + data['log'][i]['time']);
-                else mappoints[latlong] = [];
+                var latlong = data['log'][i]['location']['latitude'] + ', ' + data['log'][i]['location']['longitude'];
+		var date = new Date(1000*parseFloat(data['log'][i]['time']))
+		var line = data['log'][i]['ip'] + " at " + (date.getHours() % 12) + ":" + date.getMinutes()  + (date.getHours() >= 12 ? " pm" : " am") + " on " + (1+date.getMonth()) + "/" + date.getDate() + "/" + date.getFullYear();
+                if(latlong in mappoints) mappoints[latlong].push(line);
+                else mappoints[latlong] = [line];
             }
         
             // change map to list
