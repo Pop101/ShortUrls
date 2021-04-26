@@ -1,0 +1,4 @@
+flask
+waitress
+apscheduler
+maxminddb-geolite2

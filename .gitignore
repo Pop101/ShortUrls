@@ -1,0 +1,4 @@
+bsexport/
+*.pyc
+plan.txt
+link_table.db

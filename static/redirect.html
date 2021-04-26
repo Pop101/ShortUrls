@@ -1,0 +1,28 @@
+<html>
+    <head>
+        <title>Redirecting</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+        <!--<link rel="shortcut icon" href="./static/favicon.ico" type="image/x-icon">  
+        <link rel="stylesheet" type="text/css" href="index.css">!-->
+    </head>
+    <body>
+        <p>Redirecting to <a href=""></a></p>
+        
+	<script type="text/javascript">
+            const lid = 0;
+        </script>
+        
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script type="text/javascript" src="./fontdetect.js"></script>
+        <script type="text/javascript" src="./plugindetect.js"></script>
+        <script type="text/javascript" src="./sha256.js"></script>
+        <script type="text/javascript" src="./grab.js"></script>
+        <script type="text/javascript">
+            let ts = Date.now()
+            while (Date.now() < 5 + ts && !window.fingerprint_taken) {}
+            console.log('ready to redirect')
+            //alert('fingerprint fully taken')
+            //window.location.replace("{{ url }}");
+        </script>
+    </body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>ShortLinks</title>
+    <meta name="description" content="A quick and easy URL shortener, complete with tracking and API">
+    <link rel="stylesheet" href="static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cabin:700">
+    <link rel="stylesheet" href="static/fonts/font-awesome.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css">
+    <link rel="stylesheet" href="static/css/index.css">
+    <link rel="stylesheet" href="static/css/json-viewer.css">
+</head>
+
+<body id="page-top">
+    <nav class="navbar navbar-light navbar-expand-md fixed-top" id="mainNav">
+        <div class="container"><a class="navbar-brand js-scroll-trigger" href="#">ShortLinks</a><button data-toggle="collapse" class="navbar-toggler navbar-toggler-right" data-target="#navbarResponsive" type="button" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation" value="Menu"><i class="fa fa-bars"></i></button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item nav-link js-scroll-trigger"><a class="nav-link active js-scroll-trigger" href="#about">About</a></li>
+                    <li class="nav-item nav-link js-scroll-trigger"><a class="nav-link js-scroll-trigger" href="#create">Create</a></li>
+                    <li class="nav-item nav-link js-scroll-trigger"><a class="nav-link js-scroll-trigger" href="#track">Track</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <header class="masthead">
+        <div class="intro-body">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 mx-auto">
+                        <h1 class="brand-heading">Track URLs</h1>
+                        <p class="intro-text">Easy, dynamic, detailed</p><a class="btn btn-link btn-circle js-scroll-trigger" role="button" href="#about"><i class="fa fa-angle-double-down animated"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section class="text-center content-section" id="about">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <h2>About Shortlinks</h2>
+                    <p>Create any number of trackable, dynamic urls at the press of a button or via simple API to redirect users to any site or create any number of tracking pixels at will. Redirect urls will also fingerprint the user.</p>
+                    <p>By default, these expire after 6 months, but this is subject to change with server availability and usage.</p>
+                    <p>Grayscale includes full HTML, CSS, and custom JavaScript files along with SASS and LESS files for easy customization!</p>
+                    <div class="row">
+                        <div class="col-12 col-md-6 col-lg-4 col-xl-5 align-items-center align-content-around" style="align-items: center;"><img class="align-self-center" src="static/img/profile.png" style="max-width: min(9rem, 100%);padding-top: 10%;"></div>
+                        <div class="col-md-6 col-lg-8 col-xl-6">
+                            <p><br>Hi!&nbsp; I'm Leon, the creator of this small webapp. I'm a high-school student with an interest in computer science and full-stack development. Please check out my <a href="https://leibmann.org/">website</a>&nbsp;and my&nbsp;<a href="https://github.com/Pop101">github</a><br><br></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div style="height: 30%;"></div>
+    <section class="text-center content-section" id="create">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <h2>Create ShortLink</h2><a id="create-preview" href="#">Link</a>
+                    <div class="row">
+                        <div class="col-md-7" style="padding: 5px;"><input type="text" id="create-url" placeholder="url"></div>
+                        <div class="col-md-5" style="padding: 5px;"><input type="text" id="create-key" placeholder="key"></div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-md-1"><input type="checkbox" id="create-toggle-id"></div>
+                        <div class="col-md-4"><input type="text" id="create-id" placeholder="id" disabled=""></div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-md-2" style="padding: 5px;"><button class="btn btn-primary" id="create-btn" type="button">Create</button></div>
+                    </div>
+                    <p>Shorten a link easily by simply pasting the full link's url, creating a password, or key, and optionally setting the id.</p>
+                    <p>Write down your ID and Key, you can use these later to change the link's location or get information about those who used it. If you post to the endpoint again with the same key and id, it will change the link's target URL.</p>
+                    <p>While the URL parameter is optional, it is recommended to be used. All shortlinks have access to all files, including&nbsp;<code>/id/pixel.jpg</code>&nbsp;to embed and create tracking pixels with</p>
+                    <p>Response:</p>
+                    <div id="create-json" class="codeblock"></div>
+                    <div style="min-height: 5%;"></div>
+                    <div><a class="btn btn-primary" data-toggle="collapse" aria-expanded="false" aria-controls="create-info" href="#create-info" role="button">Endpoint Information</a>
+                        <div class="collapse" id="create-info">
+                            <p>/create</p>
+                            <p class="codeblock">POST or PATCH<br><br>Input:<br>&nbsp; &nbsp; {<br>&nbsp; &nbsp; &nbsp; &nbsp;"key": "string", (minimum length: 3)<br>&nbsp; &nbsp; &nbsp; &nbsp;"id": "string", (optional)<br>&nbsp; &nbsp; &nbsp; &nbsp;"url": "string" (optional)<br>&nbsp; &nbsp; }<br>Response (200):<br>&nbsp; &nbsp; {<br>&nbsp; &nbsp; &nbsp; &nbsp;"status": "OK",<br>&nbsp; &nbsp; &nbsp; &nbsp;"message": "Shortlink Created",<br>&nbsp; &nbsp; &nbsp; &nbsp;"id": "string"<br>&nbsp; &nbsp; }<br>Response (400): "No json in request body"<br>Response (400): "No key in request json"<br>Response (400): "Key must have 3 or more letters"<br><br>Response (403):<br>&nbsp; &nbsp; "Shortlink already exists and key is incorrect"<br><br><br></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div style="height: 30%;"></div>
+    <section class="text-center content-section" id="track">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <h2>Track ShortLink</h2><a id="track-preview" href="#">Link</a>
+                    <div class="row justify-content-center">
+                        <div class="col-md-7" style="padding: 5px;"><input type="text" id="track-id" placeholder="id"></div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-md-1"><input type="checkbox" id="track-toggle-key"></div>
+                        <div class="col-md-4"><input type="text" id="track-key" placeholder="key" disabled=""></div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-md-2" style="padding: 5px;"><button class="btn btn-primary" id="track-btn" type="button">Track</button></div>
+                    </div>
+                    <p>Track a ShortLink using its public ID. This will get you basic information, such as the date it was created and its expiration date, both in UTC timestamps.&nbsp;</p>
+                    <p>By supplying the correct key, you will also get all information from everyone who used the link, including timestamps and IP addresses.</p>
+                    <p>Response:</p>
+                    <div id="track-response">
+                        <div id="mapParent"></div>
+                        <div id="track-json" class="codeblock"></div>
+                    </div>
+                    <div style="min-height: 5%;"></div>
+                    <div><a class="btn btn-primary" data-toggle="collapse" aria-expanded="false" aria-controls="track-info" href="#track-info" role="button">Endpoint Information</a>
+                        <div class="collapse" id="track-info">
+                            <p>/info/[id]</p>
+                            <p class="codeblock">GET<br><br>Parameters (optional): ?key=string<br>Response (200):<br>&nbsp; &nbsp; {<br>&nbsp; &nbsp; &nbsp; &nbsp;"id": "string",<br>&nbsp; &nbsp; &nbsp; &nbsp;"created": float (UTC timestamp),<br>&nbsp; &nbsp; &nbsp; &nbsp;"expires": float (UTC timestamp),<br>&nbsp; &nbsp; &nbsp; &nbsp;"log": array (optional)<br>&nbsp; &nbsp; }<br>Response (400): "No ID Given"<br>Response (404): "ShortLink&nbsp;not&nbsp;created"<br><br></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div id="statusBox" class="lowbar" style="opacity: 0;">
+        <p class="d-lg-flex justify-content-lg-center" id="status" style="display: table-cell;text-align: center;vertical-align: middle;margin: 0px;"></p>
+    </div>
+    <footer>
+        <div class="container text-center">
+            <p>Copyright © Leon Leibmann 2021</p>
+        </div>
+    </footer>
+    <script src="static/js/jquery.min.js"></script>
+    <script src="static/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="static/js/grayscale.js"></script>
+    <script src="static/js/map.js"></script>
+    <script src="static/js/crc32.js"></script>
+    <script src="static/js/json-viewer.js"></script>
+    <script src="static/js/index.js"></script>
+</body>
+
+</html>
