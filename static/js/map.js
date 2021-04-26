@@ -31,6 +31,6 @@ function createMap(markers) {
         marker.bindPopup(popupText);
     }
     
-    var center = new L.LatLng(avglon / markers.length, avglat / markers.length); 
+    var center = new L.LatLng(avglat / markers.length, avglon / markers.length); 
     map.setView(center, 13);
 }
