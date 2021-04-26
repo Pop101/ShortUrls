@@ -193,7 +193,8 @@ def request_fingerprint():
     }
 
     # GEOIP the IP
-    if request.environ['REMOTE_ADDR']:
+    ip = request.environ['HTTP_X_FORWARDED_FOR'] if request.environ['HTTP_X_FORWARDED_FOR'] else request.environ['REMOTE_ADDR']
+    if ip:
         reader = geolite2.reader()
         match = reader.get(str(request.environ['REMOTE_ADDR']))
         if match:
