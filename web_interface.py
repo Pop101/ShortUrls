@@ -213,9 +213,9 @@ def request_fingerprint():
 def save_lead(id, json, lid=None):
     # If not given a lead id, generate it
     if not lid or not isinstance(lid, int):
-        lid = (time.time_ns() % 1000) * 100 
+        lid = (time.time_ns() % 1000) * 100
         while lid in leads_alive: lid += 1
-    
+
     # If lead exists already, add to it, overwriting existing fields
     elif lid in leads_alive:
         json.update(leads_alive[lid]['info'])
