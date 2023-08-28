@@ -3,3 +3,4 @@ bsexport/
 plan.txt
 link_table.db
 *.pdn
+*.lock
