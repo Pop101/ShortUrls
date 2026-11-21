@@ -8,11 +8,24 @@ A small Flask app for shortening URLs and changing their destinations later. I b
 
 ![ShortUrls poster: a short path branches to a destination and a visit log](.github/images/readme-hero.svg)
 
+## Table of Contents
+
+- [Overview](#overview)
+- [Technologies](#technologies)
+- [Run it locally](#run-it-locally)
+- [Try a link](#try-a-link)
+
 ## Overview
 
 **Create** gives a destination a short ID. The same ID and key let you change that destination later. **Track** looks up the link’s creation and expiration times. Its matching key unlocks the visit log.
 
 I use this as a local experiment. Visit logs can contain IP addresses and browser details. Use synthetic or consenting test traffic and keep the app off the public internet.
+
+## Technologies
+
+- **Python, Flask, and Waitress** run the web app.
+- **SQLite** stores links and visit records.
+- **APScheduler** runs background maintenance; **GeoLite2** supports IP geolocation.
 
 ## Run it locally
 
