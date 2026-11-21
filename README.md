@@ -23,9 +23,9 @@ I use this as a local experiment. Visit logs can contain IP addresses and browse
 
 ## Technologies
 
-- **Python, Flask, and Waitress** run the web app.
-- **SQLite** stores links and visit records.
-- **APScheduler** runs background maintenance; **GeoLite2** supports IP geolocation.
+- [**Python**](https://www.python.org/), [**Flask**](https://flask.palletsprojects.com/), and [**Waitress**](https://docs.pylonsproject.org/projects/waitress/en/stable/) run the web app.
+- [**SQLite**](https://sqlite.org/) stores links and visit records.
+- [**APScheduler**](https://apscheduler.readthedocs.io/) runs background maintenance; [**GeoLite2**](https://dev.maxmind.com/geoip/geolite2-free-geolocation-data) supports IP geolocation.
 
 ## Run it locally
 
