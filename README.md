@@ -43,6 +43,8 @@ Open `http://localhost:8484` on the same machine. The launcher binds to all inte
 ## Try a link
 
 1. In **Create**, enter a synthetic destination such as `http://example.test/`, choose a disposable key, and optionally set an ID. The response shows the short ID.
-2. In **Track**, look up that ID to see its metadata. Add the matching test key to see any visit records from your own test traffic.
+2. In **Track**, look up that ID to see its metadata. Creating a link does not record a visit.
+
+To check visits in a working test setup, open the short URL once, allow about 20 seconds for the background write, then look up the same ID and disposable key in **Track**. `example.test` is a placeholder, so the destination may not load. The stock local server can return an error before recording the visit because it expects a header supplied by a reverse proxy. If that happens, waiting will not populate the visit log.
 
 Use the local HTTP address directly. The UI's preview links assume HTTPS, and the Create form currently rewrites destinations to HTTP.
