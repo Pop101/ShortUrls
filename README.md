@@ -1,59 +1,35 @@
-# ShortUrls: Trackable Links
+# ShortUrls
 
-[![GitHub issues](https://img.shields.io/github/issues/Pop101/ShortUrls)]([https://](https://github.com/Pop101/ShortUrls/issues))
+A small Flask app for shortening URLs and changing their destinations later. I built it to see what a simple redirect can reveal about a visit.
 
-# Table of Contents
+[Run it locally](#run-it-locally) · [Full landing-page screenshot](.github/images/shorturls-landing-screenshot.png)
 
-- [ShortUrls: Trackable Links](#shorturls-trackable-links)
-- [Table of Contents](#table-of-contents)
-- [Overview](#overview)
-- [Technologies](#technologies)
-- [Getting Started](#getting-started)
-- [Usage](#usage)
+[![Open GitHub issues](https://img.shields.io/github/issues/Pop101/ShortUrls?style=flat-square)](https://github.com/Pop101/ShortUrls/issues)
 
-# Overview
+![ShortUrls poster: a short path branches to a destination and a visit log](.github/images/readme-hero.svg)
 
-Fingerprinting is an increasingly prominent technique used across the web to assign each user a unique ID.
-I built this project mainly to explore common fingerprinting techniques without using an external library while
-still demonstrating how easy it is to track users.
+## Overview
 
-Try it out at [https://links.leibmann.org](https://links.leibmann.org)!
+**Create** gives a destination a short ID. The same ID and key let you change that destination later. **Track** looks up the link’s creation and expiration times. Its matching key unlocks the visit log.
 
-# Technologies
+I use this as a local experiment. Visit logs can contain IP addresses and browser details. Use synthetic or consenting test traffic and keep the app off the public internet.
 
-This project is created with:
+## Run it locally
 
-- [Flask](https://flask.palletsprojects.com/en/2.2.x/): 2.2.2
-- [Waitress](https://docs.pylonsproject.org/projects/waitress/en/stable/): 1.4.4
-- [GeoLite 2](https://dev.maxmind.com/geoip/geolite2-free-geolocation-data)
-- [SQLite](https://www.sqlite.org/index.html)
-- [AP Scheduler](https://apscheduler.readthedocs.io/en/stable/): 3.9.0
-  
-# Getting Started
+Use an isolated environment with [Poetry](https://python-poetry.org/). The entry point is `web_interface.py`:
 
-Self-hosting the site is easy
-
-First, ensure you have poetry installed \
-```sudo python3 -m pip install poetry```
-
-Now, clone the repo and install the dependencies \
-```
-git clone https://github.com/Pop101/ShortUrls
+```sh
+git clone https://github.com/Pop101/ShortUrls.git
 cd ShortUrls
 poetry install
+poetry run python web_interface.py
 ```
 
-Finally, run the webserver \
-```poetry run python3 webserver.py```
+Open `http://localhost:8484` on the same machine. The launcher binds to all interfaces, so don't run it on an exposed host. The startup command was checked against the source; a fresh dependency install and browser run have not been verified for this revision.
 
-# Usage
+## Try a link
 
-Just connect to the webserver, creating links and tracking can be done through the website itself \
-```http://localhost:8484```
+1. In **Create**, enter a synthetic destination such as `http://example.test/`, choose a disposable key, and optionally set an ID. The response shows the short ID.
+2. In **Track**, look up that ID to see its metadata. Add the matching test key to see any visit records from your own test traffic.
 
-![An image of link creation](.github/create.png)
-
-Tracking can be just as easy! Note, for most information, you need to input the same
-passkey you used for link creation!
-
-![An image of link tracking](.github/track.png)
+Use the local HTTP address directly. The UI's preview links assume HTTPS, and the Create form currently rewrites destinations to HTTP.
